@@ -1,0 +1,1249 @@
+    <html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <link rel="stylesheet"  href="https://fonts.googleapis.com/icon?family=Material+Icons">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+       <script src="/socket.io/socket.io.js"></script>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+      <title>Cyber Fighters</title>
+
+    <style>
+      body{
+        background-color: black;
+        border-radius: 10%/10%;
+      }
+      #body{
+        position:fixed;
+      margin-top: 2%;
+      margin-left: 2%;
+      display: flex;
+      flex-direction: column;
+      background-image: url('./assets/images/webback.png');
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      background-size:80%;
+      background-size:cover;
+      background-position: center;
+      height: 90%;
+      width: 92%;
+        border: 4px solid white;
+        border-radius: 3%/5%;
+       
+
+    }
+    #chat{
+      flex-direction: column;
+    }
+    .title{
+      font-size:30;
+      font-weight: bold; 
+      text-align: center;
+      color: #000000;
+      text-shadow: 0 0 8px #FF0000, 0 0 3px #FF0000, 0 0 12px #FF0000, 0 0 10px white;
+    }
+    #columns-container {
+      display: flex;
+      justify-content: space-between;
+      height: 90%;
+      width: 95%;
+      box-shadow:  0 50px 100px -20px rgba(50,50,93,0.25), 0 30px 60px -30px rgba(0,0,0,0.3),inset 0 -2px 6px 0 rgba(10,37,64,0.35);
+    }
+     #members-column,
+      #messages-column {
+        flex: 1;
+        border: 2px solid transparent;
+        border-radius: 2%/3%;
+        box-sizing: border-box;
+
+      }
+
+    #members-column {
+      max-width: 25%;
+      background-color: #f0f0f0;
+      padding: 5px;
+      height: 100%;
+      overflow: hidden;
+      opacity: 80%;
+      overflow-y: auto;
+      overflow-y: scroll;
+      font-size: 18px;
+margin-left: 10%;
+      box-shadow:  0 50px 100px -20px rgba(2, 2, 2, 0.74), 0 30px 60px -30px rgba(0, 0, 0, 0.41),inset 0 -2px 6px 0 rgba(1, 7, 14, 0.95);
+    }
+
+    #messages {
+      max-width:85%;
+      max-height: 70%;
+    }
+
+    #messages-column {
+      max-width: 90%;
+      padding: 5px;
+      max-height: 100%; /* Set your maximum height */
+      overflow-y: auto; /* Add scrolling when content overflows */
+      background-color: black;
+      color: white;
+      opacity: 90%;
+      overflow-y: scroll;
+    font-size: 20px;
+      position: relative;
+     round: 10%;
+      box-shadow-top: 0 5px #fff;
+      box-shadow:  0 50px 100px -20px rgba(13, 13, 14, 0.96), 0 30px 60px -30px rgba(13, 13, 13, 0.3),inset 0 -2px 6px 0 rgba(149, 195, 238, 0.99);
+    }
+    #currentRoom {
+      text-shadow: 0 0 6px #0000ff, 0 0 3px #0000ff,  0 0 10px black;   
+      opacity: 90%;
+      color: black;
+    }
+    .transbox {
+    padding: 4px;
+      margin-left: -6px;
+      margin-top: px;
+      margin-right: -5px;
+      background-color: white;
+      border: 4px solid black;
+      opacity: 0.8;
+      max-width:fit-content block-size;
+    }
+      #image-input {
+        display: none;
+        margin-left: -2px;
+      }
+
+      label {
+        display: inline-flex;
+        padding: 8px;
+        background-color: lightgray;
+        color: black;
+        border-radius: 25%;
+        cursor: pointer;
+        margin-top:4px;
+        margin-bottom:-7px;
+      }
+
+      label:hover {
+        background-color: #aaa;
+      }
+
+    #form {
+      position: relative;
+      width: 80%; /* Take the full width of the container */
+      box-sizing: border-box;
+      padding: 1px; /* Adjust padding as needed */
+      /* Add background color if desired */
+    z-index: 2;
+margin-left: 33.5%;
+      margin-top: -1%;
+      
+    }
+    #p2 {
+      margin-top:-4px;
+      text-shadow: 0 0 8px #00ff00, 0 0 3px #00ff00,  0 0 10px black;       
+      opacity: 90%;
+    }
+    #p3 {
+      text-shadow: 0 0 8px #0000ff, 0 0 3px #0000ff,  0 0 10px black;   
+      opacity: 90%;
+    }
+   
+    ul.no-bullets {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+    }
+      #mySidenav a {
+        position: absolute; /* Position them relative to the browser window */
+        left: 1%; /* Position them outside of the screen */
+        transition: 0.3s; /* Add transition on hover */
+        padding: 20px; /* 15px padding */
+        width: 3%; /* Set a specific width */
+        text-decoration: none; /* Remove underline */
+        text-decoration: none;
+          font-size: 12px;
+          color: black;
+          border-radius: 5px 0 0 5px;
+          opacity: 100%;
+          z-index: 2;
+          border-radius: 10px;
+            box-shadow: 0 6px #d3d3d3;
+      }
+      /* width */
+      ::-webkit-scrollbar {
+        width: 10px;
+      }
+
+      /* Track */
+      ::-webkit-scrollbar-track {
+        box-shadow: inset 0 0 5px #00000000; 
+        border-radius: 10px;
+      }
+
+      /* Handle */
+      ::-webkit-scrollbar-thumb {
+        background: #00000000; 
+        border-radius: 10px;
+      }
+
+      /* Handle on hover */
+      ::-webkit-scrollbar-thumb:hover {
+        background: #b30000; 
+      }
+
+      #mySidenav a:hover {
+        left: 1%;
+        opacity:100%;
+         width: 5%;
+         font-size: 20px;
+      }
+
+      #Chats {
+        top: 65px;
+        background-color: limegreen;
+        font-weight: bold;
+
+      }
+      #About {
+        top: 135px;
+        background-color: white;
+        font-weight: bold;
+
+      }
+
+      #Rules {
+        top: 205px;
+        background-color: grey;
+        font-weight: bold;
+
+      }
+      #Logout {
+        top: 275px;
+        background-color: red;
+        font-weight: bold;
+
+      }
+      #Settings {
+        top: 345px;
+        background-color: grey;
+        font-weight: bold;
+      }
+
+      #roomsPopup {
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        z-index: 1; /* Sit on top */
+        left: 40%;
+        top: 20%;
+        width: 50%; /* Full width */
+        height: 50%; /* Full height */
+        overflow: hidden; /* Enable scroll if needed */
+        background-color: black; /* Fallback color */
+        opacity: 80%; /* Black w/ opacity */
+        color: black;
+      }
+      .rooms-content {
+        background-color: #fefefe;
+        margin: 15% auto; /* 15% from the top and centered */
+        padding: 20px;
+        border: 1px solid #888;
+        width: 90%; /* Could be more or less, depending on screen size */
+      }
+      
+      .user-box {
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        border:2px solid lightgrey;
+        border-radius: 5px;
+
+      }
+
+      /* Style for the username text */
+      .username-text {
+        padding-top: 3px;
+        padding-left: 2px;
+        font-size: 18px;
+        font-weight: bold;
+        cursor: pointer;
+        color: #fff;
+      }
+
+      /* Style for the clickable user box */
+      .clickable-user-box {
+        list-style: none;
+        margin: 5px 0;
+        background-color: #000; /* Background color for the user box */
+        border-radius: 5px;
+        padding: 1px;
+        transition: background-color 0.3s ease;
+        box-shadow: 2px 2px #ddd;
+        box-shadow-left: 0 2px #ddd;
+        box-shadow-right: 0 2px #ddd;
+        box-shadow-top: 0 2px #ddd;
+      }
+
+      /* Hover effect for the clickable user box */
+      .clickable-user-box:hover {
+        background-color: midnightblue; /* Change the background color on hover */
+      }
+
+      /* Style for the dropdown */
+      .dropdown-user {
+        position: relative;
+        display: inline-block;
+      }
+
+      /* Style for the dropdown content */
+      .dropdown-content-user {
+        display: none;
+        position: absolute;
+        background-color: #f9f9f9;
+        min-width: 160px;
+        box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+        z-index: 1;
+      }
+
+      /* Style for the dropdown image */
+      .dropdown-content img {
+        width: 100%;
+        height: auto;
+      }
+
+      /* Show the dropdown content on hover */
+      .dropdown-user:hover .dropdown-content-user {
+        display: block;
+      }
+
+      /* Chat containers */
+      .container {
+        box-shadow-top: 2px solid #00dedede;
+        background-color: #00000000;
+        border-radius: 5px;
+        padding: 10px;
+        margin: 10px 0;
+      }
+
+      /* Clear floats */
+      .container::after {
+        content: "";
+        clear: both;
+        display: table;
+      }
+
+      /* Style images */
+      .container img {
+        float: left;
+        max-width: 60px;
+        width: 100%;
+        margin-right: 20px;
+        border-radius: 50%;
+      }
+      .notification {
+        background-color: #555;
+        color: white;
+        text-decoration: none;
+        padding: 15px 26px;
+        position: relative;
+        display: inline-block;
+        border-radius: 2px;
+      }
+
+      .notification:hover {
+        background: red;
+      }
+
+      .notification .badge {
+        position: absolute;
+        top: -10px;
+        right: -10px;
+        padding: 5px 10px;
+        border-radius: 50%;
+        background: red;
+        color: white;
+      }
+
+      #myNavi2 {
+        display: none;
+        position: fixed;
+      z-index: 999;
+        content-align: center;
+      }
+      .profile2{
+        width: 100vw;
+        height: 100vh;
+        display:flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        background: transparent;
+        z-index: 0;
+        padding:0;
+        margin: 0;
+        position: relative;
+        overflow: hidden;
+      }
+
+      svg{
+        z-index: -10;
+        background: transparent;
+        position: absolute;
+        overflow: hidden;
+        max-height: 100%;
+        max-width: 100%;
+      }
+
+      .profile-img{
+        border-radius: 50%;
+        height: 90px;
+        width: 90px;
+        border: 7px solid rgba(90,140,240,1);
+        position: absolute;
+        left:15px;
+        top: 15px;
+      }
+
+
+
+      p{
+        font-size: 1.30em;
+      }
+
+      .middlecont p{
+        color: rgb(200,200,205);
+        
+      }
+
+      .top{
+        background:rgb(80,80,87);
+        height: 30px;
+        width: 410px;
+        max-width: 95%;
+        border-radius: 15px 15px 3px 3px;
+        display: block;
+        position: relative;
+        box-shadow: inset 6px 6px 5px rgba(200,200,205,0.4), inset -6px 6px 6px rgba(10,10,15,0.4), inset -2px -2px 2px rgba(10,10,15,0.4);
+        z-index:5;
+      }
+
+      .light{
+        background: rgb(10,10,15);
+        width: 20px;
+        height: 5px;
+        border-radius: 3px;
+        position: absolute ;
+        right: 15px;
+        top: 13px;
+        box-shadow: inset 1px 1px 2px rgba(0,0,0,0.2), inset -1px -1px 2px rgba(150,150,155,0.4);
+        animation: 1.5s lf ease forwards;
+        animation-delay: 2s;
+      }
+
+      @keyframes lf{
+        0%{
+          background: rgb(10,10,15);
+        }
+        25%{background: rgb(50,100,200);}
+        50%{background: rgb(10,60,160);}
+        100%{background: rgb(90,140,240);}
+      }
+
+      .middle{
+        background: linear-gradient(45deg, rgba(30,80,180,1), rgba(90,140,240,1));
+        width: 400px;
+        height: 450px;
+        max-width: 92%;
+        max-height: 80%;
+        transition: all 1s ease;
+        z-index:1;
+        overflow: hidden;
+        margin: 0;
+        padding: 0;
+      }
+
+      .middlecont{
+        height: 100%;
+        max-width: 95%;
+        color: white;
+        padding: 5px;
+        text-align: center;
+        z-index: 10;
+        position: relative;
+        left:0;
+        right:0;
+        margin: auto;
+      }
+
+      .open{
+        height: 400px;
+        opacity: 0.9;
+        animation: 15s hg ease infinite;
+      }
+
+      @keyframes hg{
+        0%{
+          transform: skewX(1deg);
+          opacity: 0.7;
+        }
+        1%{ transform: skewX(0);
+          opacity: 0.9;
+         }
+         69%{
+          transform: skewX(0.5deg);
+          opacity: 0.8;
+         }
+         70%{
+          transform: skewX(-1deg);
+          opacity: 0.7;
+         }
+         71%{
+          transform: skewX(0.5deg);
+          opacity: 0.9;
+         }
+         100%{
+          transform: skewX(0);
+          opacity: 0.9;
+         }
+      }
+
+      .closed{
+        height: 0px;
+        opacity: 0;
+      }
+
+
+
+      .bottom{
+        background: rgb(80,80,87);
+        width: 410px;
+        height: 30px;
+        max-width: 95%;
+        border-radius: 3px 3px 15px 15px;
+        display: block;
+        position: relative;
+          box-shadow: inset -6px -6px 6px rgba(10,10,15,0.5), inset 6px -6px 6px rgba(200, 200, 205, 0.4), inset 2px 2px 2px rgba(200,200,205,0.2);
+        z-index:4;
+      }
+
+
+         #myNavi1 {
+              display:none;
+      width: 40%;
+      height: 80%;
+            }
+            .set{
+              background-color: #171717;
+            color: white;
+              margin-left: 10px;
+              margin-right: 10px;
+              margin-bottom: -10%;
+              border-radius: 20%/30%;
+              padding: 20px;
+              line-height: 30px;
+              font-size: 1.1rem;
+              text-transform: capitalize;
+            }.set p{
+              margin: 0;
+            }
+
+
+            .profile2{
+              display: flex;
+              flex-direction: column;
+            }.colors{
+              font-size: 1.1rem;
+              font-weight: 600;
+              display: flex;
+              justify-content: space-between;
+              padding: 10px;
+            }.colors div{
+              width: 50px;
+              height: 50px;
+              border-radius: 10px;
+            }.colors div:active{
+              transform: scale(.95);
+            }
+            .red{
+              background-color: red;
+            }
+            .green{
+              background-color: green;
+            }
+            .orange{
+              background-color: orange;
+            }
+            .blue{
+              background-color: blue;
+            }
+            .dark{
+              background-color: black;
+            }
+            .light{
+              background-color: white;
+            }
+            .bluish{
+              background-color: rgb(27, 18, 80);
+            }
+            .btn-group .button {
+              background-color: #04AA6D; /* Green */
+              border: none;
+              color: white;
+              padding: 15px 32px;
+              text-align: center;
+              text-decoration: none;
+              display: inline-block;
+              font-size: 16px;
+              cursor: pointer;
+              float: left;
+              margin-left: 5%;
+              border-radius:10%;
+            }
+
+            .btn-group .button:hover {
+              background-color: #3e8e41;
+            }
+            .palak{
+
+                top:50%;
+                 position:absolute;
+                left:50%;
+                transform:translate(-50%,-50%);
+                width:24%;
+      height: 70%;
+                background:linear-gradient(blue, black);
+                box-shadow:1px 2px 5px gold,1px 2px 12px red;
+              z-index: 999;
+                border-radius:70px;
+                padding:8px;
+              margin-top: -5%;
+            }
+            .palak .op ul li{
+                overflow:hidden;
+            }
+            .palak .img span img {
+                position:relative ;
+                top:0;
+                left:0;
+                Border-radius:50%;
+                width:100%;
+                height:100%;
+                box-shadow:1px 2px 8px red,1px 2px 12px black;
+
+                margin:0 ;
+
+            }
+
+            .palak .img span {
+                display:block;
+                position:relative;
+                width:90px;
+                height:90px;
+                 Border-radius:50%;
+                margin:0 auto;
+                box-shadow:1px 2px 8px red ,1px 0px 12px black;
+
+            }
+            .palak .head p{margin:20px;
+                line-height:5;
+                font-size:20px;
+                width:79%; 
+            color: red;
+                    
+            }
+            .palak .head {
+                text-align:center;
+                border-radius:40px;
+                box-shadow:0px 3px 19px black;
+       color: red; 
+      font-size: 40px;
+      font-weight: bold;
+            }
+       .palak .head2 {
+                text-align:left;
+                border-radius:40px;
+                box-shadow:0px 3px 19px black;
+       color: grey; 
+      font-size: 28px;
+      font-weight: bold;
+      background-color: black;
+      padding:15px;
+      margin-top:-2%;
+         overflow: scroll;
+         max-height:70%;
+            }
+
+      #profile-name {
+       color: red; 
+      font-size: 18px;
+       font-weight: bold;
+      }
+            .palak .f{
+                text-align:center;
+                margin-right:60px;
+                margin-bottom:10px;
+            }
+            .palak .f li{
+                 display:inline-block;
+                font-size:35px;
+                line-height:70px;color:black;
+            }
+
+            .button-73 {
+              content-align: left;
+              background-color: #FFFFFF;
+              border-radius: 40%;
+
+              box-shadow: #ADCFFF 0 -12px 6px inset;
+              box-sizing: border-box;
+              color: #000000;
+
+
+
+
+
+              transition: all .15s;
+              user-select: none;
+              -webkit-user-select: none;
+              touch-action: manipulation;
+            }
+
+            .button-73:hover {
+              background-color: #FFC229;
+              box-shadow: #FF6314 0 -6px 8px inset;
+              transform: scale(1.125);
+            }
+
+            .button-73:active {
+              transform: scale(1.025);
+            }
+
+
+      
+
+      
+      /* Responsive adjustments */
+      @media (max-width: 768px) {
+        /* Adjust layout for tablets and below */
+        #body, #columns-container {
+          flex-direction: column;
+          right: 10%;
+        }
+
+        #members-column, #messages-column {
+          max-width: 90%;
+          margin: 15px 0;
+          
+        }
+
+        /* Adjust font sizes */
+        .title, #messages, #online-users {
+          font-size: 14px;
+        }
+
+        /* Adjust side navigation */
+        #mySidenav a {
+          padding: 10px;
+          width: auto;
+          font-size: 14px;
+          text-align: center;
+        }
+
+        /* Adjust form input and button */
+        #form input, #form button {
+          width: auto;
+          margin: 5px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        /* Further adjustments for small devices like mobile phones */
+
+        #body, #columns-container {
+          flex-direction: column;
+          left: 2%;
+          margin-left:4%;
+          max-width: 480px;
+          content-align:center;
+        }
+
+        #members-column-user, #members-column, #messages-column {
+          left: 4%;
+          margin: 5px 0;
+          }
+
+        /* Adjust smaller font sizes for readability */
+        .title, #messages, #online-users {
+          font-size: 12px;
+        }
+
+        /* Side navigation adjustments */
+        #mySidenav a {
+          padding: 8px;
+          font-size: 12px;
+          width: auto;
+        }
+        #mySidenav a:hover{
+          width: 14%;
+        }
+        /* Adjust form input and button */
+        #m {
+          width: 70%;
+          margin: 5px;
+        }
+      }
+
+ </style>
+      </head>
+    <body>
+      <img src='./assets/images/R.png' id="webback" style="width:4%;height:8%;position:fixed;left:95.5%;top:50%;z-index:2;">
+      <div id="body">
+      <marquee class="title" behavior="scroll" direction="left" style="color: #000000; text-shadow: 0 0 8px #FF0000, 0 0 3px #FF0000; font-size: 50px; text-align:center;">Cyber Fighters - Connecting Fighters World Wide</marquee>
+      <div id="mySidenav" class="sidenav">
+        <a href="#" id="Chats">P.Chats</a>
+        <a href="#" id="About" onclick="window.open('about.html','page','location=0,toolbar=0');">About</a>
+        <a href="#" id="Rules" onclick="window.open('rules.html','page','location=0,toolbar=0');">Rules</a>
+        <a href="#" id="Logout">Logout</a>
+        <a href="#" id="Settings" onclick="openNav()"><i class="fa fa-gear"></i></a>
+      </div>
+      <div id="columns-container">
+
+        <div id="members-column">
+          <div class="transbox">
+            <button class="clickable-button" id="load-online-users">Online Members</button><button class="clickable-button" onclick="openRooms()">Rooms</button>
+          </div>
+      <br>
+
+          
+          <div id="members-column-user">
+          <ul id="online-users" class="no-bullets"></ul>
+          </div>
+        </div>
+        
+      
+        <div id="messages-column">
+          <div style="text-shadow: 0 0 7px lightskyblue, 0 0 4px lightskyblue,  0 0 10px lightskyblue, 0 0 12px lightskyblue; color: ghostwhite; margin-left:70%; z-index:2;">Main_Chat</div>
+          <ul id="messages" class="no-bullets"></ul>
+          
+        </div>
+      </div>
+     
+
+      <form id="form" action="" enctype="multipart/form-data">
+       <input id="m" placeholder="Type your message here..." autocomplete="off" style="width: 70%; height:62px; box-shadow:  0 2px 4px  rgba(7, 1, 1, 0.41), 0 7px 13px -3px rgba(0, 0, 0, 0.91),inset 0 -3px 0  rgba(0, 0, 0, 0.51);" />
+        <button style="background-color: green; color: white; width: 7%; height:55px; border-radius:10%/10%;  box-shadow-left: 2px solid grey;  box-shadow-bottom: 2px solid grey; margin-left: -0.5%;">Send</button>  <label for="image-input"> <i class="material-icons">attachment</i> </label> <input type="file" id="image-input" accept="image/*" style="width: 10%;"/>
+      </form>
+      </div>
+ 
+      <div id="myNavi2" class="pop-up">
+
+        <!-- Button to close the overlay navigation -->
+
+      <div class="profile2">
+        <div class="top" onclick="toggleOpen()">
+        <p style="text-align:center; font-size:20px; top-margin:1%;">Click here to close</p>  <div class="light"></div>
+        </div>
+        <div class="middle closed">
+        <svg height="400" width="300">
+      <circle cx="0" cy="0" r="100" fill="rgba(90,140,240,1)"></circle>
+
+      <circle cx="90" cy="110" r="20" fill="rgba(90,140,240,1)"></circle>
+
+      <circle cx="0" cy="310" r="100" fill="rgba(90,140,240,0.75)"></circle>
+      </svg>
+        <div class="middlecont">
+        <br>
+        <p style="margin-left:69px; margin-bottom: 0;" id="profile-name" ></p>
+      <p style="margin-left: 55px;" id="profile-age"></p><br>
+           <p style="margin-left: 55px;" id="profile-stats"></p><br>
+        <br><br>
+      <p id="profile-info"></p>
+        <img src="" class="profile-img" id="profile-img">
+        </div>
+        </div>
+        <div onclick="toggleOpen()" class="bottom">
+        </div>
+      </div>
+      </div>
+      <div id="myNavi1" class="pop-up">
+
+          <!-- Button to close the overlay navigation -->
+
+           <div class="palak">
+          <button class="closebtn2" onclick="closeNav2()" style="width:40px; height:25px; color:black; background-color:red; float:right; margin-right:6%; border-radius:30%; font-weight:bold;">&times;</button>
+
+
+                   <div class="img">
+                    <span>
+                        <img id="profilepic1" src="" alt=""></span>
+                </div><br>
+                <div class="head">User Settings</div><br>
+                <form method="post" action=`/update-user/${localStorage.getItem('name')}` enctype="multipart/form-data">
+          <div class="head2">Username: <input style="border-radius:15%; font-size:18px; width:50%; text-align: center;" input id="username" name="username" type="text" placeholder="" required/>
+      <br>Password:  <input style="border-radius:15%; font-size:18px; width:50%; margin-left:2%; text-align: center;" id="password" name="password" type="password" placeholder="" required/>
+      <br> Height:     <input style="border-radius:15%; font-size:18px; width:50%; margin-left:10%; text-align: center;" id="height" name="height" type="text" placeholder="" required/>
+      <br> Weight: <input style="border-radius:15%; font-size:18px; width:50%; margin-left:9%; text-align: center;" id="weight" name="weight" type="text" placeholder="" required />
+      <br> Age: <input style="border-radius:15%; font-size:18px; width:50%; margin-left:19%; text-align: center;" id="age" name="age" type="text" placeholder="" required/>
+      <br> Info: <br><input style="border-radius:15%; font-size:18px; width:86%;" id="user-info" name="info" type="textarea" placeholder="" required></textarea>
+      <br>   <label for="nativeLanguage">Select your language:</label>
+          <select  name="nativeLanguage" id="nativeLanguage">
+            <option value="en">English</option>
+            <option value="es">Spanish</option>
+            <option value="mandarin">Mandarin</option>
+            <option value="hi">Hindi</option>
+            <option value="ar">Arabic</option>
+            <!-- Add more languages as options here -->
+          </select><br>
+        <br> Name Color: <input type="color" id="favcolor" style="height:50px; width:70px;" value="#ff0000">
+      <br><label for="sounds">Sounds:</label>
+          <select name="sounds" id="sounds">
+            <option value="on">On</option>
+            <option value="off">Off</option>
+        </select><br>
+           Image:     <input type="file" name="imageUpload" accept="image/*" style="margin-left:3%;" />  <div id="imagePreviewContainer" style="margin-bottom: 20px;">
+                <img id="imagePreview" style="max-width: 40%; height: 40%; margin-left:22%;" alt="" />
+            </div>
+
+
+      <button class="register" style="background-color:green; color:white; height: 14%; width:40%; margin-left:32%; border-radius:20%/20%; font-size:25px;">Update</button>
+      </form>
+      </div>
+  </div>
+    
+
+      <script>
+        const Username = localStorage.getItem("name");
+          const pingSound = "/assets/sounds/ping.mp3";
+          pingSound.volume = 0.5;
+
+          window.onload = function() {
+            // Check if the token exists in localStorage
+            const token = localStorage.getItem('token');
+
+            if (!token) {
+              // Redirect to the login page if the token is not present
+              window.location.href = '/index.html'; // Replace with the actual login page URL
+            }
+          };
+
+        function scrollToBottom() {
+          var messagesColumn = document.getElementById("messages-column");
+          messagesColumn.scrollTop = messagesColumn.scrollHeight;
+        }
+
+        function toggleOpen(){
+          var el = document.getElementsByClassName("middle")[0];
+
+          if(el.className.includes("open")){
+            el.className = "middle closed";
+            
+          }else if(el.className.includes("closed")){
+            document.getElementById("myNavi2").style.display = "none";
+            el.className = "middle open";
+          }else{
+            el.className = "middle open";
+            document.getElementById("myNavi2").style.display = "block";
+          }
+        }
+
+        window.onload = ()=>{
+          setTimeout(()=>{
+          document.getElementsByClassName("middle")[0].className = "middle open";
+
+          },3500);
+        }
+         // open settings
+          function openNav() {
+          const user = localStorage.getItem('name');
+          const img = `https://cyberfighters.replit.app/uploads/${Username}-image.jpg`;
+          // Correctly retrieve user information asynchronously
+          fetch(`/get-details?username=${Username}`)
+            .then((response) => response.json())
+            .then((data) => {
+              document.getElementById("favcolor").value = data.color;
+                document.getElementById("user-info").value = data.info;
+              document.getElementById("weight").value = data.weight;
+              document.getElementById("height").value = data.height;
+              document.getElementById("age").value = data.age;
+              document.getElementById("username").value = Username;
+              document.getElementById("imagePreview").src = `https://cyberfighters.replit.app/uploads/${Username}-image.jpg`;
+              document.getElementById("profilepic1").src = `https://cyberfighters.replit.app/uploads/${Username}-image.jpg`
+              document.getElementById("profilepic1").alt = `${Username}-image`;
+              })
+              .catch((error) => {
+                console.error('Error:', error);
+              });
+            document.getElementById("myNavi1").style.display = "block";
+          }
+
+        // open profile
+        function openProfile(user) {
+          const img = `https://cyberfighters.replit.app/uploads/${user}-image.jpg`;
+          // Correctly retrieve user information asynchronously
+          fetch(`/get-details?username=${user}`)
+            .then((response) => response.json())
+            .then((data) => {
+              document.getElementById("profile-info").innerHTML = `Info: ${data.info}`;
+              document.getElementById("profile-stats").innerHTML = `Stats: Height - ${data.height}, Weight - ${data.weight}`;
+              document.getElementById("profile-age").innerHTML = `Age: ${data.age}`;
+              document.getElementById("profile-name").innerHTML = user;
+              document.getElementById("profile-img").src = img;
+            })
+            .catch((error) => {
+              console.error('Error:', error);
+            });
+
+          document.getElementById("myNavi2").style.display = "block";
+          localStorage.setItem('receiver', user);
+        }
+        
+          /* Close */
+          function closeNav() {
+            document.getElementById("myNavi2").style.display = "none";
+          }
+
+          function closeNav2() {
+            document.getElementById("myNavi1").style.display = "none";
+          }
+
+
+        document.addEventListener('DOMContentLoaded', function() {
+            var imageInput = document.querySelector('input[name="imageUpload"]');
+            var imagePreview = document.getElementById('imagePreview');
+
+            imageInput.addEventListener('change', function(event) {
+                var file = event.target.files[0];
+                if (file) {
+                    var reader = new FileReader();
+                    reader.onload = function(e) {
+                        imagePreview.src = e.target.result;
+                        imagePreview.alt = file.name;
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+        });
+
+       
+        // Example function to populate the rooms (assuming rooms are an array of strings)
+      
+
+        // Trigger to show the popup and populate rooms
+        function openRooms() {
+          // Example rooms array
+          let rooms = ["Main_Chat", "Erotic_Ring", "Erotic_Cage"];
+          populateRooms(rooms);
+          document.getElementById("roomsPopup").style.display = "block";
+        }
+        
+        const socket = io();
+        
+        // update users online
+          socket.on('update users', function (users) {
+            updateOnlineUsers(users);
+          });
+          function updateOnlineUsers(users) {
+            const onlineUsersList = document.getElementById("online-users"); // Fixed to target the correct element for displaying online users
+            const uniqueUsers = new Set();
+            onlineUsersList.innerHTML = ''; // Clear the list before adding new users
+            users.forEach(user => {
+              if (!uniqueUsers.has(user)) {
+                // Use jQuery for consistency
+                const listItem = $(`<li class='user-box' onclick='openProfile("${user}")'; style="opacity:95%;"> <div class="dropdown-user"> <img src="/uploads/${user}-image.jpg" alt="profile" width="30px" height="32px" style="border-radius: 10%/15%; margin-right: 3px; margin-top: 3px;"> <div class="dropdown-content-user" style="z-index:1;"> <img src="/uploads/${user}-image.jpg" alt="Profile" width="170px" height="200px" style="z-index: 1; opacity:100%;"></div> </div> <text class="username-text" style="color: #fff; opacity:100%; font-weight:bold; font-size:18px; color:black;">${user}</text> </div></li>`); // Removed id="${socket}" which was incorrect and might cause confusion
+                // append the user item to the online users list
+                $('#online-users').append(listItem);
+                // Add the user to the set to prevent duplicates
+                uniqueUsers.add(user);
+              }
+            });
+          }
+
+          document.getElementById('load-online-users').addEventListener('click', function() {
+            // Request the server for online users
+            socket.emit('request online users');
+          });
+          socket.on('online users list', function(users) {
+            const onlineUsersList = document.getElementById("online-users"); // Ensure this is the ID for your members-online list
+            onlineUsersList.innerHTML = ''; // Clear the list first
+          users.forEach(user => {
+              // Use jQuery for consistency
+              const listItem = $(`<li class='user-box' onclick='openProfile("${user}")'; style="opacity:95%;"> <div class="dropdown-user"> <img src="/uploads/${user}-image.jpg" alt="profile" width="30px" height="32px" style="border-radius: 10%/15%; margin-right: 3px; margin-top: 3px;"> <div class="dropdown-content-user" style="z-index:1;"> <img src="/uploads/${user}-image.jpg" alt="Profile" width="170px" height="200px" style="z-index: 1; opacity:100%;"></div> </div> <text class="username-text" style="color: #fff; opacity:100%; font-weight:bold; font-size:18px; color:black;">${user}</text> </div></li>`); // Removed id="${socket}" which was incorrect and might cause confusion
+              // append the user item to the online users list
+              $('#online-users').append(listItem);
+              // Add the user to the set to prevent duplicates
+          });
+        });
+        function openRooms() {
+          const onlineUsersList = document.getElementById("online-users"); // Fixed to target the correct element for displaying online users
+          const rooms = ["Main_Chat", "Erotic_Ring", "Erotic_Cage"];
+          onlineUsersList.innerHTML = ''; // Clear the list before adding new rooms
+          rooms.forEach(room => {
+              // Use jQuery for consistency
+              const listItem = $(`<li class='user-box' onclick='joinRoom("${room}")'; style="opacity:95%;"> <text class="username-text" style="color: #fff; opacity:100%; font-weight:bold; font-size:18px; color:black;">${room}</text></li>`); // Removed id="${socket}" which was incorrect and might cause confusion
+              // append the user item to the online users list
+              $('#online-users').append(listItem);
+              // Add the user to the set to prevent duplicates
+          });
+        }
+        // Handle user connection
+        socket.emit('user connected', `${Username}`);
+
+        // sort
+        socket.on("users", (users) => {
+          users.forEach((user) => {
+            user.self = user.userID === socket.id;
+
+          });
+          // put the current user first, and then sort by username
+          this.users = users.sort((a, b) => {
+            if (a.self) return -1;
+            if (b.self) return 1;
+            if (a.username < b.username) return -1;
+            return a.username > b.username ? 1 : 0;
+          });
+        });
+
+        // send public message
+        $('#form').submit(function (event) {
+        event.preventDefault();
+        const text = $('#m').val();
+        const imageInput = $('#image-input')[0];
+        const room = localStorage.getItem('currentroom');
+        const number = localStorage.getItem('msgid');
+          const color = localStorage.getItem('color');
+
+
+        if (text.length > 0 || imageInput.files.length > 0) {
+          // If there is text or an image, emit 'chat message'
+          const data = { text: text, room: room, number: number, color: color };
+
+          if (imageInput.files.length > 0) {
+            const imageFile = imageInput.files[0];
+            const reader = new FileReader();
+
+            reader.onload = function (e) {
+              const imageData = e.target.result;
+              data.image = { data: imageData, fileName: imageFile.name, room: room };
+              socket.emit('chat message', data);
+
+              const send = {
+                username: localStorage.getItem('name'),
+                message: text,
+                avatar: `/uploads/${localStorage.getItem('name')}-image.jpg`
+              };
+
+
+                      // Send message to Discord webhook
+                      sendWebhook(send.username, send.avatar, send.message);
+
+                    };
+
+                    reader.readAsDataURL(imageFile);
+                  } else {
+                    socket.emit('chat message', data);
+
+                    const send = {
+                      username: localStorage.getItem('name'),
+                      message: text,
+                      avatar: `https://cyberfighters.replit.app/uploads/${localStorage.getItem('name')}-image.jpg`
+                    };
+
+                    // Send message to Discord webhook
+                    sendWebhook(send.username, send.avatar, send.message);
+                  }
+                };
+
+               $('#m').val('');
+                $('#image-input').val(''); // Clear the image input
+                scrollToBottom();
+
+                return false;
+              })
+         // Receive public chat messages, including text and images
+            socket.on('chat message', async function (data) {
+              const userLang = localStorage.getItem('languagePreference') || 'en';
+              const username = data.username;// Use a default username if not provided
+              const messageFile = data.room;
+              localStorage.setItem('currentroom', `${data.room}`);
+              const color = data.color;
+              if (data.text) {
+                const translatedText = await translateMessage(data.text, userLang);
+
+
+                const formattedMessage = $('<li2 id="2">').html(`<div class="container"> <img src="./uploads/${username}-image.jpg" alt=""><text style="text-shadow: 0 0 8px ${color}, 0 0 3px black; font-weight: bold; color:white; margin-top:8px; text-align:center; z-index:1; width:40%;">${username}:</text><br>
+        <text style="color:white; z-index:1; background-color:00FF0000; width:80%;">${translatedText}</text></div>`);
+                $('#messages').append(formattedMessage);
+                  }
+
+              if (data.image) {
+                // Handle image message
+                const { data: imageData, fileName } = data.image;
+                const formattedImage = $('<li class="clickable-user">').html(`<span style="color: red;">${username}:</span> <img src="${data.image.data}" alt="${fileName}" />`);
+                $('#messages').append(formattedImage);
+              }
+
+
+              scrollToBottom();
+            });
+            // Handle loaded messages
+            socket.on('load messages', function (loadedMessages) {
+              loadedMessages.forEach(function (data) {
+                $('#messages').append($('<li2>').html(`${data}`));
+              });
+              scrollToBottom(); // Scroll to the bottom after loading messages
+            });
+
+        socket.on('posted message', function (messageData) {
+              const username = messageData.username;// Use a default username if not provided
+
+              const color = messageData.color;
+          const avatar = messageData.avatar;
+
+
+                const formattedMessage = $('<li2 id="2">').html(`<div class="container"> <img src="${avatar}" alt=""><text style="text-shadow: 0 0 8px ${color}, 0 0 3px black; font-weight: bold; color:white; margin-top:8px; text-align:center; z-index:1; width:40%;">${username}:</text><br>
+        <text style="color:white; z-index:1; background-color:00FF0000;">${messageData.text}</text></div>`);
+                $('#messages').append(formattedMessage);
+
+            scrollToBottom();
+          });
+
+        async function translateMessage(message, userLang) {
+          // Example translations, this is purely illustrative
+          const language = userLang || 'en';
+          const response = await fetch(`https://api.munlai.me/json/translate?text=${message}&source=auto&target=${language}`, {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          });
+          const data = await response.json();
+          return data.data;
+        }
+
+        // sendwebhook
+       function sendWebhook(username, avatar, text) {
+         const myHeaders = new Headers();
+myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+myHeaders.append("Accept", "application/json");
+myHeaders.append("Cookie", "__cfruid=2bf06f112acbcd9c50e4d6bccec4cffbb892cff5-1712781878; __dcfduid=c64a85eabee311ee924726bba1bc3514; __sdcfduid=c64a85eabee311ee924726bba1bc3514975fa554622f4eb9bba4abbe57abfc0ee31c1008746b5b60e5c9730d82d14973; _cfuvid=7MpB2CVVgUXc8jMkuJgoUCO3pxbMxMbJIQgc3.XBupI-1712781878559-0.0.1.1-604800000");
+
+const urlencoded = new URLSearchParams();
+urlencoded.append("content", `${text}`);
+urlencoded.append("username", `${username}`);
+urlencoded.append("avatar_url", `https://cyberfighters.replit.app/uploads/${username}-image.jpg`);
+
+const requestOptions = {
+  method: "POST",
+  headers: myHeaders,
+  body: urlencoded,
+  redirect: "follow"
+};
+
+fetch("https://discord.com/api/v10/webhooks/1227685276336263168/KumWfkLXtnL1qVOpAkUWWTVEezHPYRyOBFDX4tpY-Ge91W1QyJMP4IZsJTOmpdfe3KJY", requestOptions)
+  .then((response) => response.text())
+  .then((result) => console.log(result))
+  .catch((error) => console.error(error));
+        }
+      </script>
+    </body>
+    </html>
+    

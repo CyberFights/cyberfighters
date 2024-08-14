@@ -1,0 +1,105 @@
+body{
+  display: flex;
+  flex-direction: row;
+}
+#chat{
+  flex-direction: column;
+}
+.title{
+  font-size:30;
+  font-weight: bold; 
+  text-align: center;
+  color: #000000;
+  text-shadow: 0 0 8px #FF0000, 0 0 3px #FF0000, 0 0 12px #FF0000, 0 0 10px white;
+}
+#columns-container {
+  display: flex;
+  justify-content: space-between;
+  height: 500px;
+  width: 84%;
+}
+ #members-column,
+  #messages-column {
+    flex: 1;
+    border: 2px solid transparent;
+    border-radius: 2%/3%;
+    box-sizing: border-box;
+
+  }
+
+#members-column {
+  max-width: 18%;
+  background-color: #f0f0f0;
+  padding: 5px;
+  height: 500px;
+  overflow: hidden;
+  opacity: 80%;
+  overflow-y: auto;
+  overflow-y: scroll;
+  font-size: 18px;
+
+}
+
+#messages {
+  max-width:70%;
+}
+
+#messages-column {
+  max-width: 98%;
+  padding: 5px;
+  max-height: 500px; /* Set your maximum height */
+  overflow-y: auto; /* Add scrolling when content overflows */
+  background-color: black;
+  color: white;
+  opacity: 90%;
+  overflow-y: scroll;
+font-size: 20px;
+  position: relative;
+ round: 10%;
+  box-shadow-top: 0 5px #fff;
+
+}
+#currentRoom {
+  text-shadow: 0 0 6px #0000ff, 0 0 3px #0000ff,  0 0 10px black;   
+  opacity: 90%;
+  color: black;
+}
+.transbox {
+padding: 4px;
+  margin-left: -6px;
+  margin-top: px;
+  margin-right: -5px;
+  background-color: white;
+  border: 4px solid black;
+  opacity: 0.8;
+  max-width:fit-content block-size;
+}
+
+#form {
+  position: relative;
+  width: 100%; /* Take the full width of the container */
+  box-sizing: border-box;
+  padding: 1px; /* Adjust padding as needed */
+  /* Add background color if desired */
+z-index: 2;
+
+}
+#p2 {
+  margin-top:-4px;
+  text-shadow: 0 0 8px #00ff00, 0 0 3px #00ff00,  0 0 10px black;       
+  opacity: 90%;
+}
+#p3 {
+  text-shadow: 0 0 8px #0000ff, 0 0 3px #0000ff,  0 0 10px black;   
+  opacity: 90%;
+}
+#currentRoom {
+  text-shadow: 0 0 6px #0000ff, 0 0 3px #0000ff,  0 0 10px black;   
+  opacity: 90%;
+  color: black;
+}
+ul.no-bullets {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}

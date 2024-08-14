@@ -1,0 +1,91 @@
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Register</title>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <style>
+            /* Add your CSS styling here */
+            /* This is a basic styling setup. Adjust it according to your needs. */
+            body {
+              background-color: skyblue;
+              background-repeat: no-repeat;
+              background-attachment: fixed;
+              background-size: cover;
+            }
+            form {
+              /* Adjust the form styling */
+              margin: auto;
+              padding: 20px;
+              width: 90%;
+              max-width: 400px;
+            }
+            input, select, button {
+              width: 100%;
+              margin-bottom: 10px;
+              padding: 8px;
+              border: 1px solid #ccc;
+              border-radius: 4px;
+            }
+            button {
+              cursor: pointer;
+              background-color: #4CAF50;
+              color: white;
+            }
+            button:hover {
+              opacity: 0.8;
+            }
+        </style>
+    </head>
+    <body>
+    <div id="registration-form-container">
+        <form method="post" action="/upload" enctype="multipart/form-data">
+            <input name="email" type="email" placeholder="Email address" required />
+            <input id="username" name="username" type="text" placeholder="Username" required />
+            <input id="password" name="password" type="password" placeholder="Password" required />
+            <input id="height" name="height" type="text" placeholder="Height" required />
+            <input id="weight" name="weight" type="text" placeholder="Weight" required />
+            <input id="age" name="age" type="text" placeholder="Age" required />
+            <label for="nativeLanguage">Native Language:</label>
+            <select name="nativeLanguage" id="nativeLanguage" required>
+                <option value="en">English</option>
+                <option value="es">Spanish</option>
+                <option value="mandarin">Mandarin</option>
+                <option value="hi">Hindi</option>
+                <option value="ar">Arabic</option>
+                <!-- Add more languages as options here -->
+            </select>
+            <input id="info" name="info" type="text" placeholder="Info (e.g., interests)" required />
+  <div id="imagePreviewContainer" style="margin-bottom: 20px;">
+              <img id="imagePreview" style="max-width: 100%; height: auto;" alt="" style="margin-left:-2%;"/>
+          </div>
+            <input type="file" name="imageUpload" accept="image/*" required />
+            <button type="submit">Register</button>
+        </form>
+</div>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var imageInput = document.querySelector('input[name="imageUpload"]');
+        var imagePreview = document.getElementById('imagePreview');
+
+        imageInput.addEventListener('change', function(event) {
+            var file = event.target.files[0];
+            if (file) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    imagePreview.src = e.target.result;
+                    imagePreview.alt = file.name;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+    });
+    localStorage.setItem('name', document.getElementById('username').value);
+    localStorage.setItem('color', 000);
+    localStorage.setItem('age', document.getElementById('age').value);
+    localStorage.setItem('info', document.getElementById('info').value);
+    localStorage.setItem('languagePreference', document.getElementById('nativeLanguage').value);
+    </script>
+</body>
+</html>
